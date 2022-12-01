@@ -13,53 +13,51 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.getElementsByClassName("close")[0];
 
-//NOMMER LES CONST DU FORMULAIRE
-const inscription = document.getElementById("inscription");
-const birthdate = document.getElementById("birthdate");
+//CONST FORMULAIRE
+const inscription = document.querySelector('#inscription');
+
+const email = document.getElementById("email");
+const last  = document.getElementById("last");
+const quantity = document.getElementById("quantity");
 const checkCG = document.querySelector(".checkbox-icon");
+const checkbox1 = document.getElementById("checkbox1");
 
-const champValide= document.getElementsByClassName("champValide");
-const submit = document.getElementById("btn-submit");
 
-//CONST CHAMPS MANQUANTS -- CONST REGEX 
+///////////////////VALIDATION PRENOM///////////////
 
-//PRENOM MANQUANT - FORMAT INCORRECT - CHAMP VALIDE
-function isFirstValid(){
-  const first = document.getElementById("first");
+function isValidFirst(){
+  const prenomRegex = new RegExp(/^([A-Z][A-Za-z ,.'`-]{3,30})$/gm);
   const prenomManquant = document.getElementById("prenomManquant");
-  const prenomRegex = /^[a-zA-Z][a-zéèêçîï]+([-'\s][a-zA-Z][a-zéèêçîï]+)?/;
-
+  const first = document.getElementById("first");
+  //test de regex
   if (first.validity.valueMissing){
-    e.preventDefault();
     prenomManquant.textContent = "Merci de renseigner votre prénom";  
     prenomManquant.style.color ="red";
     return false;
   }
-  if (prenomRegex.test(first.value)===false){
-    e.preventDefault();
+  else if (prenomRegex.test(first.value)===false){
     prenomManquant.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du prénom";
     prenomManquant.style.color ="red";
     return false;
   } 
+  else {
     prenomManquant.textContent ="Prénom Valide";
     prenomManquant.style.color ="green";
     return true;
-}
+}};
 
-//NOM MANQUANT - FORMAT INCORRECT - CHAMP VALIDE
-function isLastValid(){
+///////////////////VALIDATION NOM///////////////
+function isValidLast(){
   const last  = document.getElementById("last");
   const nomManquant = document.getElementById("nomManquant");
   const nomRegex = /^[a-zA-Z][a-zéèêçîï]+([-'\s][a-zA-Z][a-zéèêçîï]+)?/;
 
   if (last.validity.valueMissing){
-    e.preventDefault();
     nomManquant.textContent = "Merci de renseigner votre nom";  
     nomManquant.style.color ="red";
     return false;
   } 
   if (nomRegex.test(last.value)===false){
-    e.preventDefault();
     nomManquant.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du nom";
     nomManquant.style.color ="red";
     return false;
@@ -69,8 +67,9 @@ function isLastValid(){
     return true;
   }
 
-//EMAIL MANQUANT - FORMAT INCORRECT - CHAMP VALIDE
-function isMailValid(){
+///////////////////VALIDATION EMAIL///////////////
+
+function isValidEmail(){
   const email = document.getElementById("email");
   const mailManquant = document.getElementById("mailManquant");
   const mailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -92,88 +91,104 @@ function isMailValid(){
     return true;
   }  
 
-    //         //DATE DE NAISSANCE MANQUANTE - FORMAT INCORRECT
-    // const dateManquante = document.getElementById("dateManquante");
-    // const dateRegex = /^(0[1-9]|1[1-9]|2[0-9]|3[01]).(0[1-9]|1[012]).([19]{2})?([1-9]{2})/;
+  ///////////////////VALIDATION DATE DE NAISSANCE///////////////
 
-    // if (birthdate.validity.valueMissing){
-    //   e.preventDefault();
-    //   dateManquante.textContent = "date manquante";  
-    //   dateManquante.style.color ="red";
-    //   } else if (dateRegex.test(birthdate.value)==false){
-    //     e.preventDefault();
-    //     dateManquante.textContent = "format incorrect";
-    //     dateManquante.style.color ="red";
-    //   }
+function isValidDate(){
+  //const dateRegex = new RegExp( /^(0[1-9]|1[0-2])-([1-9]|[12][0-9]|3[01])-(19[1-9][0-9]|20[0-4][0-9]|2015)$/);
+  const dateManquante = document.getElementById("dateManquante");
+  const birthdate = document.getElementById("birthdate")
 
-
-
-//QUANTITE MANQUANTE - FORMAT INCORRECT - CHAMP VALIDE
-
-function isQuantityValid(){
-  const quantity = document.getElementById("quantity");
-  const quantiteManquante = document.getElementById("quantiteManquante");
-  const quantiteRegex = /^[1-9]?[0-9]{1}$|^100$/;
-
-  if (quantity.validity.valueMissing){
-    e.preventDefault();
-    quantiteManquante.textContent = "Merci de compléter le nombre de tournois";  
-    quantiteManquante.style.color ="red";
-    return false;
-  } 
-  if (quantiteRegex.test(quantity.value)==false){
-    e.preventDefault();
-    quantiteManquante.textContent = "format incorrect";
-    quantiteManquante.style.color ="red";
-    return false;
-  }
-    quantiteManquante.textContent ="quantité Valide";
-    quantiteManquante.style.color ="green";
+  //test de regex
+  if(!birthdate.value==""){
+    dateManquante.textContent ="date Valide";
+    dateManquante.style.color ="green";
     return true;
-  }
+  
+  } else {
+    dateManquante.textContent = "Merci de renseigner votre date de naissance";  
+    dateManquante.style.color ="red";
+    return false;
+  }};
 
-//CG CHECK - UNCHECKED - CHECKED
-function isCGChecked(){
-  const checkbox1 = document.getElementById("checkbox1");
-  const checkboxError = document.getElementById("checkboxError");
+  ///////////////////VALIDATION QUANTITE///////////////
 
+  const isValidQuantity = function(inputQuantity){
+    const quantityRegex = new RegExp( /^[0-9]+$/);
+    const quantiteManquante = document.getElementById("quantiteManquante");
+    const quantity = document.getElementById("quantity");
 
-   if (checkbox1.checked== false){
-      e.preventDefault();
-      checkboxError.textContent = "Vous devez vérifier que vous acceptez les termes et conditions.";  
-      checkboxError.style.color ="red";
+    if(!quantity.value==""){
+      quantiteManquante.textContent ="quantité Valide";
+      quantiteManquante.style.color ="green";
+      return false;    
+    } 
+    else if (quantityRegex.test(inputQuantity.value)){
+      quantiteManquante.textContent ="quantité Valide";
+      quantiteManquante.style.color ="green";
+      return true;
+    }
+    else {
+      quantiteManquante.textContent = "Merci de renseigner le nombre de tournois";  
+      quantiteManquante.style.color ="red";
       return false;
+    }};
 
-    } else { 
+    ///////////////////VALIDATION CHECK CG///////////////
+
+  const isValidCheckCG = function(){
+    const checkbox1 = document.getElementById("checkbox1");
+    const checkboxError = document.getElementById("checkboxError");
+  
+    if(checkbox1.checked== false){
+      checkboxError.textContent = "Vous devez vérifier que vous acceptez les termes et conditions.";
+      checkboxError.style.color ="red";
+      return false;    
+    } 
+    else {
       checkboxError.textContent = "Vous avez accepté les conditions d'utilisation";
       checkboxError.style.color ="green";
       return true;
-    }
-} 
+    }};
 
 
+//////////////////ADDEVENTLISTENER/////////////////////////
 
+//ecouter la modification du prenom
+inscription.first.addEventListener('change', function(){
+  isValidFirst(this); 
+});
+//ecouter la modification du prénom
+inscription.last.addEventListener('change', function(){
+  isValidLast (this);
+});
+//ecouter la modification du mail
+inscription.email.addEventListener('change', function(){
+  isValidEmail (this);
+});
+//ecouter la modification de la date
+inscription.birthdate.addEventListener('change', function(){
+  isValidDate (this);
+});
+//ecouter la modification du nombre de tournois
+inscription.quantity.addEventListener('change', function(){
+  isValidQuantity (this);
+});
+//ecouter le check des CG
+inscription.checkbox1.addEventListener('change', function(){
+  isValidCheckCG (this);
+});
+//ecouter la soumission du formulaire
+const submit = document.getElementById("btn-submit");
 
-function btnValid(e){
-if (isFirstValid()===true 
-&& isLastValid()===true 
-&& isMailValid()===true 
-&& isQuantityValid()===true 
-&& isCGChecked()===true){
-  alert("yes");
-} else{
+inscription.addEventListener('submit', function(e){
   e.preventDefault();
-  alert("no");
-}
-}
+  if ((isValidFirst)&&(isValidLast)&&(isValidEmail)&&(isValidDate)&&(isValidQuantity)&&(isValidCheckCG)){
+  inscription.submit();
+ // form.style.display = "none";
+  alert("merci");
+}});
 
-submit.addEventListener("click", btnValid);
-
-
-
-
-
-//FERMER LA FENETRE FORM AVEC X
+         //FERMER LA FENETRE FORM AVEC X
 closeBtn.onclick = function(){
   modalBg.style.display = "none";
 }
@@ -191,6 +206,4 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalBg.style.display = "block";
 }
-
-
 
