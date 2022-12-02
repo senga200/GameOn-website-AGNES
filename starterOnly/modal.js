@@ -16,12 +16,6 @@ const closeBtn = document.getElementsByClassName("close")[0];
 //CONST FORMULAIRE
 const inscription = document.querySelector('#inscription');
 
-const email = document.getElementById("email");
-const last  = document.getElementById("last");
-const quantity = document.getElementById("quantity");
-const checkCG = document.querySelector(".checkbox-icon");
-const checkbox1 = document.getElementById("checkbox1");
-
 
 ///////////////////VALIDATION PRENOM///////////////
 
@@ -58,7 +52,7 @@ function isValidLast(){
     return false;
   } 
   if (nomRegex.test(last.value)===false){
-    nomManquant.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du nom";
+    nomManquant.textContent = "Votre nom doit contenir au moins deux caractères";
     nomManquant.style.color ="red";
     return false;
   }
@@ -75,13 +69,11 @@ function isValidEmail(){
   const mailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   if (email.validity.valueMissing){
-    e.preventDefault();
     mailManquant.textContent = "Merci de renseigner votre e-mail";  
     mailManquant.style.color ="red";
     return false;
   } 
   if (mailRegex.test(email.value)===false){
-    e.preventDefault();
     mailManquant.textContent = "format incorrect";
     mailManquant.style.color ="red";
     return false;
@@ -98,7 +90,6 @@ function isValidDate(){
   const dateManquante = document.getElementById("dateManquante");
   const birthdate = document.getElementById("birthdate")
 
-  //test de regex
   if(!birthdate.value==""){
     dateManquante.textContent ="date Valide";
     dateManquante.style.color ="green";
@@ -122,11 +113,6 @@ function isValidDate(){
       quantiteManquante.style.color ="green";
       return false;    
     } 
-    else if (quantityRegex.test(inputQuantity.value)){
-      quantiteManquante.textContent ="quantité Valide";
-      quantiteManquante.style.color ="green";
-      return true;
-    }
     else {
       quantiteManquante.textContent = "Merci de renseigner le nombre de tournois";  
       quantiteManquante.style.color ="red";
@@ -136,9 +122,10 @@ function isValidDate(){
     ///////////////////VALIDATION CHECK CG///////////////
 
   const isValidCheckCG = function(){
-    const checkbox1 = document.getElementById("checkbox1");
+   // const checkbox1 = document.getElementById("checkbox1");
     const checkboxError = document.getElementById("checkboxError");
-  
+    const checkbox1 = document.getElementById("checkbox1");
+
     if(checkbox1.checked== false){
       checkboxError.textContent = "Vous devez vérifier que vous acceptez les termes et conditions.";
       checkboxError.style.color ="red";
@@ -179,13 +166,14 @@ inscription.checkbox1.addEventListener('change', function(){
 });
 //ecouter la soumission du formulaire
 const submit = document.getElementById("btn-submit");
-
+const success = document.getElementById("success");
 inscription.addEventListener('submit', function(e){
   e.preventDefault();
   if ((isValidFirst)&&(isValidLast)&&(isValidEmail)&&(isValidDate)&&(isValidQuantity)&&(isValidCheckCG)){
-  inscription.submit();
- // form.style.display = "none";
-  alert("merci");
+  //FERMETURE DU FORMULAIRE SI COMPLETE
+  inscription.style.display = "none";
+  //AJOUT DU TEXTE DE REMERCIEMENT DANS LA DIV SUCCESS
+  success.textContent ="Merci ! Votre réservation a été reçue.";
 }});
 
          //FERMER LA FENETRE FORM AVEC X
