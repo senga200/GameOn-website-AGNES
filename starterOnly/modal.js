@@ -16,27 +16,29 @@ const closeBtn = document.getElementsByClassName("close")[0];
 //CONST FORMULAIRE
 const inscription = document.querySelector('#inscription');
 
-
 ///////////////////VALIDATION PRENOM///////////////
 
 function isValidFirst(){
-  const prenomRegex = new RegExp(/^([A-Z][A-Za-z ,.'`-]{3,30})$/gm);
+  const prenomRegex = new RegExp(/^([a-zA-Z][A-Za-z ,.'`-]{3,30})$/gm);
   const prenomManquant = document.getElementById("prenomManquant");
   const first = document.getElementById("first");
-  //test de regex
+ 
   if (first.validity.valueMissing){
     prenomManquant.textContent = "Merci de renseigner votre prénom";  
     prenomManquant.style.color ="red";
+    prenomManquant.style.fontSize = "14px";
     return false;
   }
   else if (prenomRegex.test(first.value)===false){
     prenomManquant.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du prénom";
     prenomManquant.style.color ="red";
+    prenomManquant.style.fontSize = "14px";
     return false;
   } 
   else {
     prenomManquant.textContent ="Prénom Valide";
     prenomManquant.style.color ="green";
+    prenomManquant.style.fontSize = "14px";
     return true;
 }};
 
@@ -49,15 +51,18 @@ function isValidLast(){
   if (last.validity.valueMissing){
     nomManquant.textContent = "Merci de renseigner votre nom";  
     nomManquant.style.color ="red";
+    nomManquant.style.fontSize = "14px";
     return false;
   } 
   if (nomRegex.test(last.value)===false){
     nomManquant.textContent = "Votre nom doit contenir au moins deux caractères";
     nomManquant.style.color ="red";
+    nomManquant.style.fontSize = "14px";
     return false;
   }
     nomManquant.textContent ="nom Valide";
     nomManquant.style.color ="green";
+    nomManquant.style.fontSize = "14px";
     return true;
   }
 
@@ -71,15 +76,18 @@ function isValidEmail(){
   if (email.validity.valueMissing){
     mailManquant.textContent = "Merci de renseigner votre e-mail";  
     mailManquant.style.color ="red";
+    mailManquant.style.fontSize = "14px";
     return false;
   } 
   if (mailRegex.test(email.value)===false){
     mailManquant.textContent = "format incorrect";
     mailManquant.style.color ="red";
+    mailManquant.style.fontSize = "14px";
     return false;
   }
     mailManquant.textContent ="e-mail Valide";
     mailManquant.style.color ="green";
+    mailManquant.style.fontSize = "14px";
     return true;
   }  
 
@@ -93,11 +101,13 @@ function isValidDate(){
   if(!birthdate.value==""){
     dateManquante.textContent ="date Valide";
     dateManquante.style.color ="green";
+    dateManquante.style.fontSize = "14px";
     return true;
   
   } else {
     dateManquante.textContent = "Merci de renseigner votre date de naissance";  
     dateManquante.style.color ="red";
+    dateManquante.style.fontSize = "14px";
     return false;
   }};
 
@@ -108,15 +118,17 @@ function isValidDate(){
     const quantiteManquante = document.getElementById("quantiteManquante");
     const quantity = document.getElementById("quantity");
 
-    if(!quantity.value==""){
-      quantiteManquante.textContent ="quantité Valide";
-      quantiteManquante.style.color ="green";
+    if(quantity.value==""){
+      quantiteManquante.textContent = "Merci de renseigner le nombre de tournois";  
+      quantiteManquante.style.color ="red";
+      quantiteManquante.style.fontSize = "14px";
       return false;    
     } 
     else {
-      quantiteManquante.textContent = "Merci de renseigner le nombre de tournois";  
-      quantiteManquante.style.color ="red";
-      return false;
+      quantiteManquante.textContent ="quantité Valide";
+      quantiteManquante.style.color ="green";
+      quantiteManquante.style.fontSize = "14px";
+      return true;
     }};
 
     ///////////////////VALIDATION CHECK CG///////////////
@@ -129,11 +141,13 @@ function isValidDate(){
     if(checkbox1.checked== false){
       checkboxError.textContent = "Vous devez vérifier que vous acceptez les termes et conditions.";
       checkboxError.style.color ="red";
+      checkboxError.style.fontSize = "14px";
       return false;    
     } 
     else {
       checkboxError.textContent = "Vous avez accepté les conditions d'utilisation";
       checkboxError.style.color ="green";
+      checkboxError.style.fontSize = "14px";
       return true;
     }};
 
@@ -167,14 +181,21 @@ inscription.checkbox1.addEventListener('change', function(){
 //ecouter la soumission du formulaire
 const submit = document.getElementById("btn-submit");
 const success = document.getElementById("success");
+
 inscription.addEventListener('submit', function(e){
   e.preventDefault();
-  if ((isValidFirst)&&(isValidLast)&&(isValidEmail)&&(isValidDate)&&(isValidQuantity)&&(isValidCheckCG)){
-  //FERMETURE DU FORMULAIRE SI COMPLETE
+  if 
+  (isValidFirst()
+  &&isValidLast()
+  &&isValidEmail()
+  &&isValidDate()
+  &&isValidQuantity()
+  &&isValidCheckCG())
+  {
   inscription.style.display = "none";
-  //AJOUT DU TEXTE DE REMERCIEMENT DANS LA DIV SUCCESS
   success.textContent ="Merci ! Votre réservation a été reçue.";
 }});
+
 
          //FERMER LA FENETRE FORM AVEC X
 closeBtn.onclick = function(){
