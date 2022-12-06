@@ -23,24 +23,23 @@ function isValidFirst(){
   const prenomManquant = document.getElementById("prenomManquant");
   const first = document.getElementById("first");
  
-  if (first.validity.valueMissing){
+  if (first.value==""){
     prenomManquant.textContent = "Merci de renseigner votre prénom";  
     prenomManquant.style.color ="red";
     prenomManquant.style.fontSize = "14px";
     return false;
   }
-  else if (prenomRegex.test(first.value)===false){
+  if (prenomRegex.test(first.value)===false){
     prenomManquant.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du prénom";
     prenomManquant.style.color ="red";
     prenomManquant.style.fontSize = "14px";
     return false;
   } 
-  else {
     prenomManquant.textContent ="Prénom Valide";
     prenomManquant.style.color ="green";
     prenomManquant.style.fontSize = "14px";
     return true;
-}};
+};
 
 ///////////////////VALIDATION NOM///////////////
 function isValidLast(){
@@ -48,7 +47,7 @@ function isValidLast(){
   const nomManquant = document.getElementById("nomManquant");
   const nomRegex = /^[a-zA-Z][a-zéèêçîï]+([-'\s][a-zA-Z][a-zéèêçîï]+)?/;
 
-  if (last.validity.valueMissing){
+  if (last.value==""){
     nomManquant.textContent = "Merci de renseigner votre nom";  
     nomManquant.style.color ="red";
     nomManquant.style.fontSize = "14px";
@@ -67,13 +66,12 @@ function isValidLast(){
   }
 
 ///////////////////VALIDATION EMAIL///////////////
-
 function isValidEmail(){
   const email = document.getElementById("email");
   const mailManquant = document.getElementById("mailManquant");
   const mailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-  if (email.validity.valueMissing){
+  if (email.value==""){
     mailManquant.textContent = "Merci de renseigner votre e-mail";  
     mailManquant.style.color ="red";
     mailManquant.style.fontSize = "14px";
@@ -98,23 +96,21 @@ function isValidDate(){
   const dateManquante = document.getElementById("dateManquante");
   const birthdate = document.getElementById("birthdate")
 
-  if(!birthdate.value==""){
-    dateManquante.textContent ="date Valide";
-    dateManquante.style.color ="green";
-    dateManquante.style.fontSize = "14px";
-    return true;
-  
-  } else {
+  if(birthdate.value==""){
     dateManquante.textContent = "Merci de renseigner votre date de naissance";  
     dateManquante.style.color ="red";
     dateManquante.style.fontSize = "14px";
     return false;
-  }};
+  }
+    dateManquante.textContent ="date Valide";
+    dateManquante.style.color ="green";
+    dateManquante.style.fontSize = "14px";
+    return true;
+  };
 
   ///////////////////VALIDATION QUANTITE///////////////
 
-  const isValidQuantity = function(inputQuantity){
-    const quantityRegex = new RegExp( /^[0-9]+$/);
+  function isValidQuantity(){
     const quantiteManquante = document.getElementById("quantiteManquante");
     const quantity = document.getElementById("quantity");
 
@@ -124,17 +120,14 @@ function isValidDate(){
       quantiteManquante.style.fontSize = "14px";
       return false;    
     } 
-    else {
       quantiteManquante.textContent ="quantité Valide";
       quantiteManquante.style.color ="green";
       quantiteManquante.style.fontSize = "14px";
       return true;
-    }};
+    };
 
     ///////////////////VALIDATION CHECK CG///////////////
-
   const isValidCheckCG = function(){
-   // const checkbox1 = document.getElementById("checkbox1");
     const checkboxError = document.getElementById("checkboxError");
     const checkbox1 = document.getElementById("checkbox1");
 
@@ -144,16 +137,13 @@ function isValidDate(){
       checkboxError.style.fontSize = "14px";
       return false;    
     } 
-    else {
       checkboxError.textContent = "Vous avez accepté les conditions d'utilisation";
       checkboxError.style.color ="green";
       checkboxError.style.fontSize = "14px";
       return true;
-    }};
-
+    };
 
 //////////////////ADDEVENTLISTENER/////////////////////////
-
 //ecouter la modification du prenom
 inscription.first.addEventListener('change', function(){
   isValidFirst(this); 
@@ -179,10 +169,9 @@ inscription.checkbox1.addEventListener('change', function(){
   isValidCheckCG (this);
 });
 //ecouter la soumission du formulaire
-const submit = document.getElementById("btn-submit");
+inscription.addEventListener('submit', function(e){
 const success = document.getElementById("success");
 
-inscription.addEventListener('submit', function(e){
   e.preventDefault();
   if 
   (isValidFirst()
@@ -196,7 +185,6 @@ inscription.addEventListener('submit', function(e){
   success.textContent ="Merci ! Votre réservation a été reçue.";
 }});
 
-
          //FERMER LA FENETRE FORM AVEC X
 closeBtn.onclick = function(){
   modalBg.style.display = "none";
@@ -207,6 +195,8 @@ window.onclick = function (fermer) {
     modalBg.style.display = "none";
   }
 }
+
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
