@@ -202,6 +202,7 @@ const successContainer = document.querySelector(".successContainer");
   successContainer.style.display="block";  
   inscription.style.display = "none";
   success.textContent ="Merci ! Votre réservation a été reçue.";
+  success.style.fontSize = "22px";
 }});
 
 ////FERMER LA MODAL AVEC LE BOUTON "FERMER" QUAND LE FORMULAIRE A ETE SOUMIS///
