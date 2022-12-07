@@ -12,6 +12,7 @@ const modalBg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.getElementsByClassName("close")[0];
+const fermer = document.querySelector(".btn-submit");
 
 //CONST FORMULAIRE
 const inscription = document.querySelector('#inscription');
@@ -19,7 +20,7 @@ const inscription = document.querySelector('#inscription');
 ///////////////////VALIDATION PRENOM///////////////
 
 function isValidFirst(){
-  const prenomRegex = new RegExp(/^([a-zA-Z][A-Za-z ,.'`-]{3,30})$/gm);
+  const prenomRegex = new RegExp(/^[a-zA-Z][a-zéèêçîï]+([-'\s][a-zA-Z][a-zéèêçîï]+)?/);
   const prenomManquant = document.getElementById("prenomManquant");
   const first = document.getElementById("first");
  
@@ -186,6 +187,7 @@ inscription.checkbox1.addEventListener('change', function(){
 //ecouter la soumission du formulaire
 inscription.addEventListener('submit', function(e){
 const success = document.getElementById("success");
+const successContainer = document.querySelector(".successContainer");
 
   e.preventDefault();
   if 
@@ -196,9 +198,16 @@ const success = document.getElementById("success");
   &&isValidQuantity()
   &&isValidCheckCG())
   {
+
+  successContainer.style.display="block";  
   inscription.style.display = "none";
   success.textContent ="Merci ! Votre réservation a été reçue.";
 }});
+
+////FERMER LA MODAL AVEC LE BOUTON "FERMER" QUAND LE FORMULAIRE A ETE SOUMIS///
+  fermer.onclick = function(){
+  modalBg.style.display = "none";
+}
 
          //FERMER LA FENETRE FORM AVEC X
 closeBtn.onclick = function(){
@@ -220,4 +229,3 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalBg.style.display = "block";
 }
-
