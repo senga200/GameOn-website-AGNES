@@ -201,7 +201,7 @@ const successContainer = document.querySelector(".successContainer");
 
   successContainer.style.display="block";  
   inscription.style.display = "none";
-  success.textContent ="Merci ! Votre réservation a été reçue.";
+  success.innerHTML ="Merci !<br/> Votre réservation a été reçue.<br/>";
   success.style.fontSize = "22px";
 }});
 
