@@ -1,3 +1,11 @@
+  ********** lien vers la page github : ***********
+=============================================================
+=============================================================
+
+https://senga200.github.io/GameOn-website-AGNES/starterOnly/
+
+=============================================================
+
 GAME ON : Le contexte du projet
 
 GameOn est une entreprise spécialisée dans les conférences et les concours de jeux.
